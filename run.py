@@ -34,6 +34,7 @@ def kalkulator():
 	else:
 		coli("Pilih Yang Benar!");time.sleep(2)
 		return kalkulator()
+	return logo()
 
 def akar_kuadrat():
 	# Memasukkan Inputan Angka
@@ -67,9 +68,9 @@ def volume_kubus():
 def persamaan_kuadrat():
 	# Menyelesaikan Persamaan Kuadrat ax**2 + bx + c = 0
 	# Menginput Angka
-	a = int(input('Tulis a: '))
-	b = int(input('Tulis b: '))
-	c = int(input('Tulis c: '))
+	a = int(input('Masukan Nilai a: '))
+	b = int(input('Masukan Nilai b: '))
+	c = int(input('Masukan Nilai c: '))
 	
 	# Menghitung Diskriminan
 	d = (b**2) - (4*a*c)
@@ -87,9 +88,8 @@ def tukar_nilaiVar():
 	y = input('Masukan Nilai Y : ')
 	
 	# Membuat Variabel tukar dan Menukar nilai Variabel lain
-	tukar = x
 	x = y
-	y = tukar
+	y = x
 	
 	#Menampilkan Nilai Variabel Setelah Ditukar
 	coli('Nilai x Setelah Ditukar adalah: {}'.format(x))
@@ -99,7 +99,7 @@ def angka_acak():
 	inpt = input("Masukan Batasan : ")
 	print(f"Menampilkan Angka Acak antara 0 sampai {inpt}")
 	#Menampilkan Angka Acak
-	coli("Angka Acak Yang Terpilih Adalah ",random.randint(0,int(inpt)))
+	coli("Angka Acak Yang Terpilih Adalah "+random.randint(0,int(inpt)))
 
 def km_mil():
 	# Menginput Jarak dalam Satuan Kilometer

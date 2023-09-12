@@ -242,8 +242,8 @@ def logo():
 I███████████████████] {B}Mathematical Tools{P}
 ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤...    Developed By => {H}Christian S.{P}
 ''')
-logo()
 os.system("clear")
+logo()
 
 print("1. Kalkulator")
 print("2. Menghitung Akar Kuadrat")

@@ -34,7 +34,7 @@ def kalkulator():
 	else:
 		coli("Pilih Yang Benar!");time.sleep(2)
 		return kalkulator()
-	return logo()
+	return
 
 def akar_kuadrat():
 	# Memasukkan Inputan Angka

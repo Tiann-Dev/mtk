@@ -1,4 +1,4 @@
-import random,sys,time 
+import random,sys,time,os
 import cmath
 import calendar
 import requests
@@ -243,6 +243,7 @@ I███████████████████] {B}Mathematical Tool
 ◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤...    Developed By => {H}Christian S.{P}
 ''')
 logo()
+os.system("clear")
 
 print("1. Kalkulator")
 print("2. Menghitung Akar Kuadrat")

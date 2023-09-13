@@ -36,6 +36,8 @@ H = '\x1b[1;92m'
 K = '\x1b[1;93m'
 B = '\x1b[1;94m'
 
+os.system("git pull")
+
 class Loader:
     def __init__(self, desc="Loading...", end=f"{H}Done!{P}", timeout=0.1):
         """}

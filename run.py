@@ -10,6 +10,9 @@ from shutil import get_terminal_size
 from threading import Thread
 from time import sleep
 from rich.console import Console
+from datetime import datetime
+import json
+
 
 try:
     import requests
@@ -352,35 +355,36 @@ def logo():
 	print(f'''
 ░░░░░░███████ ]▄▄▄▄▄▄▄▄▃
 ▂▄▅█████████▅▄▃▂
-I███████████████████] {B}Mathematical Tools{P}
-◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤...    Developed By => {H}Christian S.{P}
+I███████████████████] {B} Mathematical Tools{P}
+◥⊙▲⊙▲⊙▲⊙▲⊙▲⊙▲⊙◤... Developed By => {H} Christian S.{P}
 ''')
 clear()
 logo()
 ip = requests.get('https://api.ipify.org').text
-def menu():
-	coli('''	  __              __          
+def well():
+	print('''	  __              __          
 	 (  _ /_ _  __/  /  )__/_   _ 
 	__)(-((///)(//  /(_/(//(//)(/ 
 	                          _/  ''')
-	print(f"1. Kalkulator	{H}(Active|On){P}")
-	print("2. Menghitung Akar Kuadrat")
-	print("3. Menghitung Luas Segitiga")
-	print("4. Menghitung Volume Kubus")
-	print("5. Menyelesaikan Persamaan Kuadrat")
-	print("6. Menukar Nilai Variabel")
-	print("7. Menghasilkan Angka Acak")
-	print("8. Mengubah Kilometer jadi Mil")
-	print("9. Mengubah Celcius jadi Fahrenheit")
-	print("10. Menentukan Bilangan Positif, Negatif, atau Nol")
-	print("11. Menentukan Bilangan Ganjil atau Genap")
-	print("12. Menentukan Tahun Kabisat")
-	print("13. Menampilkan Kalender Masehi")
-	print("14. Mengurutkan Kata Sesuai Abjad")
-	print("15. Menampilkan Tabel Perkalian")
-	print("16. Menentukan Nilai dan Kelulusan")
-	print("0. Kontak Developer\n")
-	put = input("Pilih => ")
+def menu():
+	print(f" [1] Kalkulator	{H}(Active|On){P}")
+	print(" [2] Menghitung Akar Kuadrat")
+	print(" [3] Menghitung Luas Segitiga")
+	print(" [4] Menghitung Volume Kubus")
+	print(" [5] Menyelesaikan Persamaan Kuadrat")
+	print(" [6] Menukar Nilai Variabel")
+	print(" [7] Menghasilkan Angka Acak")
+	print(" [8] Mengubah Kilometer jadi Mil")
+	print(" [9] Mengubah Celcius jadi Fahrenheit")
+	print(" [10] Menentukan Bilangan Positif, Negatif, atau Nol")
+	print(" [11] Menentukan Bilangan Ganjil atau Genap")
+	print(" [12] Menentukan Tahun Kabisat")
+	print(" [13] Menampilkan Kalender Masehi")
+	print(" [14] Mengurutkan Kata Sesuai Abjad")
+	print(" [15] Menampilkan Tabel Perkalian")
+	print(" [16] Menentukan Nilai dan Kelulusan")
+	print(" [0] Kontak Developer\n")
+	put = input("  Pilih => ")
 
 	if put in ["1","01"]:
 		kalkulator()
@@ -415,20 +419,62 @@ def menu():
 	elif put in ["16"]:
 		nilai_lulus()
 	elif put in ["p","0"]:
-		url = "https://wa.me/6282257561165?text=Hai+Tian!+Saya+Pengguna+Toolsmu"
+		url = "https://wa.me/6282257561165?text=Hai+Tian!+Saya+Pengguna+Tools"
 		webbrowser.open(url)
 	else:
 		coli("Pilih Yang Benar!");time.sleep(2);clear();logo()
 		return menu()
 
-console = Console()
-koi = ["Koneksi","Ip Address","Versi Aplikasi","Versi Python","List Menu","Kestabilan Progam","Apikey","Server"]
+def load():
+	console = Console()
+	koi = ["Koneksi","Ip Address","Versi Aplikasi","Versi Python","List Menu","Kestabilan Progam","Apikey","Server"]
+	tasks = [f"Mengecek {n}" for n in koi]
+	with console.status("[bold green]Sedang Mengecek...") as status:
+	   while tasks:
+	       task = tasks.pop(0)
+	       sleep(1)
+	       console.log(f"{task} [green]Complete[white]")
+	   
+sesi_pengguna = {}
 
-tasks = [f"Mengecek {n}" for n in koi]
-with console.status("[bold green]Sedang Mengecek...") as status:
-    while tasks:
-        task = tasks.pop(0)
-        sleep(1)
-        console.log(f"{task} [green]Complete[white]")
-time.sleep(1)
-clear();logo();menu()
+def set_sesi_pengguna():
+    global sesi_pengguna
+    nama_pengguna = input(f"{K} [%] {P}Masukkan nama pengguna: ")
+    masa_aktif = time.time() + 3600
+    sesi_pengguna = {'username': nama_pengguna, 'status': 'aktif', 'expire_time': masa_aktif}
+    with open('sesi_pengguna.json', 'w') as file:
+        json.dump(sesi_pengguna, file)
+    
+    print(f'{H} [✓]{P} Data sesi pengguna telah disimpan.');time.sleep(2)
+    load();clear();menu()
+
+def cek_sesi_pengguna():
+    global sesi_pengguna
+    try:
+        with open('sesi_pengguna.json', 'r') as file:
+            sesi_pengguna = json.load(file)
+            if sesi_pengguna:
+                if 'expire_time' in sesi_pengguna:
+                    expire_time = sesi_pengguna['expire_time']
+                    expire_time_formatted = datetime.fromtimestamp(expire_time).strftime('%H:%M %d-%b-%Y')
+                    
+                    if time.time() < expire_time:
+                        well()
+                        print(f"{H}  [§]{P} Selamat datang {B}{sesi_pengguna['username']}{P}! Status:{H} {sesi_pengguna['status']}{P}")
+                        print(f"{H}  [∆]{P} Masa aktif sesi hingga: {H}{expire_time_formatted}{P}\n")
+                    else:
+                        print('Sesi pengguna telah kedaluwarsa.')
+                        print(f"Kedaluwarsa pada: {expire_time_formatted}")
+                else:
+                    print('Data sesi pengguna tidak valid.')
+            else:
+                print('Data sesi pengguna kosong.')
+    except FileNotFoundError:
+        print('Data sesi pengguna tidak ditemukan.')
+
+nama_file = 'sesi_pengguna.json'
+if os.path.isfile(nama_file):
+    cek_sesi_pengguna();menu()
+else:
+    print(f"{M} [!] {P}Anda Belum Terdaftar Di Database!")
+    set_sesi_pengguna()
